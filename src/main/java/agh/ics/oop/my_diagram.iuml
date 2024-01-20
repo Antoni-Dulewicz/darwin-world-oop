@@ -1,0 +1,164 @@
+@startuml
+
+class Vector2D {
+    - x: int
+    - y: int
+    + Vector2D(x: int, y: int)
+    + getX(): int
+    + getY(): int
+    + equals(other: Vector2D): boolean
+    + toString(): String
+    + add(other: Vector2D): Vector2D
+    + substract(other: Vector2D): Vector2D
+}
+interface WorldElement{
+    + getPosition(): Vector2D
+}
+
+class Object implements WorldElement{
+    - animals: PriorityQueue<Animal>
+    - plants: Plant
+    + Object()
+    + getPlant(): Plant
+    + getAnimals(): List<Animal>
+    + setPlant(plant: Plant): void
+    + addAnimal(animal: Animal): void
+    + removeAnimal(animal: Animal): void
+    + getObjects(): List<Object>
+    + isOccupied(): boolean
+    + toString(): String
+  }
+
+class Square{
+    - position: Vector2D
+    - objects: Objects
+
+    + Square(position: Vector2D)
+    + addAnimal(animal: Animal): void
+    +removeAnimal(animal: Animal): void
+    + getAnimals(): List<Animal>
+    + getPlant(): Plant
+    + setPlant(plant: Plant): void
+    + objectAt(position: Vector2D): Object
+    + isOccupied(position: Vector2D): boolean
+}
+
+
+
+interface WorldMap{
+    + place(element: WorldElement): boolean
+    + canMoveTo(position: Vector2D): boolean
+    + objectAt(position: Vector2D): Object
+    + isOccupied(position: Vector2D): boolean
+    + getLowerLeft(): Vector2D
+    + getUpperRight(): Vector2D
+    + getElements(): List<WorldElement>
+
+}
+
+interface MapVisualizer{
+    + drawMap(): void
+}
+
+class AbstractWorldMap implements WorldMap,MapVisualizer{
+    - lowerLeft: Vector2D
+    - upperRight: Vector2D
+    - animals: List<Animal>
+    - plants: List<Plant>
+    - mapSquares: HashMap<Vector2D,Square>
+
+    + AbstractWorldMap(lowerLeft: Vector2D, upperRight: Vector2D)
+    + generateMap(): void
+    + updateMap(): void
+    + getMapSquares(): HashMap<Vector2D,Square>
+
+    'Implementacja WorldMap'
+        + place(element: WorldElement): boolean
+        + canMoveTo(position: Vector2D): boolean
+        + objectAt(position: Vector2D): Object
+        + isOccupied(position: Vector2D): boolean
+        + getLowerLeft(): Vector2D
+        + getUpperRight(): Vector2D
+        + getElements(): List<WorldElement>
+        + drawMap(): void
+}
+
+
+class GameMap extends AbstractWorldMap{
+    +GameMap(lowerLeft: Vector2D, upperRight: Vector2D)
+    + canMoveTo(position: Vector2D): boolean
+}
+
+class PoisonedPlantsMap extends AbstractWorldMap{
+    - poisonedPlants: List<Plant>
+    - poisonedSquareLowerLeft: Vector2D
+    - poisonedSquareUpperRight: Vector2D
+    +PoisonedPlantsMap()
+    + placePoisonedPlant(): void
+    + avoidGettingPoisoned(): void
+}
+
+class Animal{
+    - direction: MapDirection
+    - position: Vector2D
+    - genotype: Genotype
+    - energy: int
+    - age: int
+    - childrenCount: int
+
+    + Animal(position: Vector2D, energy: int, genotype: Genotype, age: int)
+    + move(): void
+    + eat(plant: Plant): void
+    + reproduce(animal: Animal): void
+    + isAbleToReproduce(): boolean
+    + canMove(): boolean
+    + avoidGettingPoisoned(): void
+    + getEnergy(): int
+    + getPosition(): Vector2D
+    + getGenotype(): Genotype
+    + getAge(): int
+    + getChildrenCount(): int
+    + setDirection(direction: MapDirection): void
+    + setEnergy(energy: int): void
+    + setChildrenCount(childrenCount: int): void
+    + setPositon(position: Vector2D): void
+    + setGenotype(genotype: Genotype): void
+
+}
+
+class Plant{
+    - position: Vector2D
+    - energy: int
+    - isPoisoned: boolean
+
+    + Plant(position: Vector2D)
+    + setPoisoned(): void
+    + grow(): void
+    + getEnergy(): int
+    + getPosition(): Vector2D
+    + setEnergy(energy: int): void
+    + setPosition(position: Vector2D): void
+
+}
+
+class Genotype{
+   - genome: List<Integer>
+   + Genotype(genome: List<Integer>)
+   + getGenome(): List<Integer>
+   + mutate(): void
+   + setGenes(genes: List<Integer>): void
+   + switchGenes(genome: List<Integer>): void
+}
+
+class Simulation{
+    -worldMap: WorldMap
+
+    + Simulation(worldMap: WorldMap)
+    + run(): void
+    + changeDay(): void
+    + displayMap(): void
+    + getAnimals(): List<Animal>
+    + getPlants(): List<Plant>
+}
+
+@enduml
