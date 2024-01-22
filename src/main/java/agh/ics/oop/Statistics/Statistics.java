@@ -1,4 +1,4 @@
-package agh.ics.oop;
+package agh.ics.oop.Statistics;
 
 import agh.ics.oop.model.AbstractWorldMap;
 import agh.ics.oop.model.GameMap;
@@ -141,26 +141,5 @@ public class Statistics {
 
         return statisticsStringBuilder.toString();
 
-
-        /*System.out.println("Number of animals: " + this.countAnimals());
-        System.out.println("Number of plants: " + this.countPlants());
-        System.out.println("Most common genotype: " + this.getMostCommonGenotype());
-        System.out.println("Number of free squares: " + this.countFreeSquares());
-        if(this.getAverageEnergy() == 0){
-            System.out.println("There are no animals");
-        }else{
-            System.out.println("Average energy: " + this.getAverageEnergy());
-        }
-
-        if(this.getAverageLifeLength() == 0){
-            System.out.println("There are no dead animals");
-        }else{
-            System.out.println("Average life length: " + this.getAverageLifeLength());
-        }
-        if(this.getAverageChildrenCount() == 0){
-            System.out.println("There are no animals/animals with children");
-        }else{
-            System.out.println("Average children count: " + this.getAverageChildrenCount());
-        }*/
     }
 }

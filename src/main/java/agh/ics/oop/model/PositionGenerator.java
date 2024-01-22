@@ -56,9 +56,13 @@ public class PositionGenerator {
         int y = 1;
         if(middleY!=yRange){
             int y1 = generator.nextInt((middleY - yRange)) + lowerLeft.getY();
-            int y2 = generator.nextInt(middleY-yRange+1) + middleY + yRange+1; // +1 because nextInt is exclusive
+            int y2 = generator.nextInt(middleY-yRange+1) + middleY + yRange; // +1 because nextInt is exclusive
 
             y = generator.nextInt(2) == 0 ? y1 : y2;
+        }
+
+        if (y == 11){
+            System.out.println("X: " + x + " Y: " + y);
         }
 
         return new Vector2d(x,y);

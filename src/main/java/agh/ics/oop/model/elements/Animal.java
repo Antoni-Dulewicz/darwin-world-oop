@@ -17,6 +17,8 @@ public class Animal {
     private int age;
     private int childrenCount;
 
+    private int plantsEaten;
+
     public Animal(Vector2d initialPosition, int energy, Genotype genotype, int age) {
         this.direction = 0;
         this.position = initialPosition;
@@ -24,6 +26,7 @@ public class Animal {
         this.energy = energy;
         this.age = age;
         this.childrenCount = 0;
+        this.plantsEaten = 0;
 
     }
 
@@ -65,20 +68,13 @@ public class Animal {
         return energy;
     }
 
-    /*public String toString() {
-        switch (direction) {
-            case 0 -> {return "N";}
-            case 1 -> {return "NE";}
-            case 2 ->  {return "E";}
-            case 3 ->  {return "SE";}
-            case 4 -> {return "S";}
-            case 5 -> {return "SW";}
-            case 6 ->  {return "W";}
-            case 7 ->  {return "NW";}
-            default -> {return " ";}
+    public int getPlantsEaten() {
+        return plantsEaten;
+    }
 
-        }
-    }*/
+    public void setPlantsEaten(int plantsEaten) {
+        this.plantsEaten = plantsEaten;
+    }
     public String toString() {
         return String.valueOf(this.energy);
     }
@@ -115,6 +111,9 @@ public class Animal {
                 }
 
                 newPos = new Vector2d(x1%(width+1), y1);
+                if(newPos.getX() == 12){
+                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
+                }
                 this.position = newPos;
             }
             case 1 -> {
@@ -136,6 +135,9 @@ public class Animal {
                 }
 
                 newPos = new Vector2d(x1%(width+1), y1);
+                if(newPos.getX() == 12){
+                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
+                }
                 this.position = newPos;
             }
             case 2 -> {
@@ -149,6 +151,9 @@ public class Animal {
                 if (x1 == map.getLowerLeft().getX()-1) x1 = width;
 
                 newPos = new Vector2d(x1%(width), y1);
+                if(newPos.getX() == 12){
+                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
+                }
                 this.position = newPos;
                 this.direction = 2;
             }
@@ -167,6 +172,10 @@ public class Animal {
                     this.direction = 0;
                 }else{
                     this.direction = 3;
+                }
+                newPos = new Vector2d(x1%(width), y1);
+                if(newPos.getX() == 12){
+                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
                 }
                 this.position = newPos;
             }
@@ -187,6 +196,9 @@ public class Animal {
                 }
 
                 newPos = new Vector2d(x1%(width+1), y1);
+                if(newPos.getX() == 12){
+                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
+                }
                 this.position = newPos;
             }
             case 5 -> {
@@ -207,6 +219,9 @@ public class Animal {
                 }
 
                 newPos = new Vector2d(x1%(width+1), y1);
+                if(newPos.getX() == 12){
+                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
+                }
                 this.position = newPos;
             }
             case 6 -> {
@@ -220,6 +235,9 @@ public class Animal {
                 if (x1 == map.getLowerLeft().getX()-1) x1 = width;
 
                 newPos = new Vector2d(x1%(width+1), y1);
+                if(newPos.getX() == 12){
+                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
+                }
                 this.position = newPos;
                 this.direction = 6;
             }
@@ -241,6 +259,9 @@ public class Animal {
                 }
 
                 newPos = new Vector2d(x1%(width+1), y1);
+                if(newPos.getX() == 12){
+                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
+                }
                 this.position = newPos;
             }
             default -> throw new IllegalArgumentException();
@@ -250,4 +271,8 @@ public class Animal {
         this.energy -= 1;
         return this;
     }
+
+
+
+
 }

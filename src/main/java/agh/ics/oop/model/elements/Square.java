@@ -4,6 +4,7 @@ import agh.ics.oop.World;
 import agh.ics.oop.model.Vector2d;
 
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class Square {
     private Vector2d position;
@@ -34,6 +35,8 @@ public class Square {
     public List<Animal> getAnimals(){
         return this.element.getAnimals();
     }
+
+
     public Plant getPlant(){
         return this.element.getPlant();
     }

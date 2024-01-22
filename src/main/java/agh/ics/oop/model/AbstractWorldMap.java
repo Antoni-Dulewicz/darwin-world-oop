@@ -1,6 +1,5 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.World;
 import agh.ics.oop.model.elements.*;
 import agh.ics.oop.model.util.MapVisualizer;
 
@@ -131,6 +130,22 @@ public abstract class AbstractWorldMap implements WorldMap{
 
     public List<Animal> getAllDeadAnimals(){
         return this.allDeadAnimals;
+    }
+
+    public Plant getPlant(Vector2d position){
+        Square square = this.mapSquares.get(position);
+        if(square != null){
+            return square.getPlant();
+        }
+        return null;
+    }
+
+    public List<Animal> getAnimals(Vector2d position){
+        Square square = this.mapSquares.get(position);
+        if(square != null){
+            return square.getAnimals();
+        }
+        return null;
     }
 
 
@@ -278,21 +293,22 @@ public abstract class AbstractWorldMap implements WorldMap{
         }
         this.deadAnimals.clear();
     }
-
-    public void eatNormalPlant(List<Animal> currAnimals,int plantEnergy,Plant currPlant,Square square){
-        Animal strongestAnimal = currAnimals.get(0);
+    public void eatNormalPlant(PriorityQueue currAnimals,int plantEnergy,Plant currPlant,Square square){
+        Animal strongestAnimal = (Animal) currAnimals.poll();
         int animalEnergy = strongestAnimal.getEnergy();
         int newAnimalEnergy = animalEnergy + plantEnergy; //dodajemy energie
         strongestAnimal.setEnergy(newAnimalEnergy);
+        strongestAnimal.setPlantsEaten(strongestAnimal.getPlantsEaten() + 1);
         square.setPlant(null);
         this.plants.remove(currPlant);
     }
 
-    public void eatPoisonousPlant(List<Animal> currAnimals,int plantEnergy,Plant currPlant,Square square){
-        Animal strongestAnimal = currAnimals.get(0);
+    public void eatPoisonousPlant(PriorityQueue currAnimals,int plantEnergy,Plant currPlant,Square square){
+        Animal strongestAnimal = (Animal) currAnimals.poll();
         int animalEnergy = strongestAnimal.getEnergy();
         int newAnimalEnergy = animalEnergy - plantEnergy; //odejmujemy energie
         strongestAnimal.setEnergy(newAnimalEnergy);
+        strongestAnimal.setPlantsEaten(strongestAnimal.getPlantsEaten() + 1);
         square.setPlant(null);
         this.plants.remove(currPlant);
         if(newAnimalEnergy <= 0){
@@ -305,9 +321,10 @@ public abstract class AbstractWorldMap implements WorldMap{
 
             if(square.getElement().hasPlant()){
                 Plant currPlant = square.getPlant();
-                List<Animal> currAnimals = square.getAnimals();
+                PriorityQueue<Animal> currAnimals = new PriorityQueue<>(square.getElement().getAnimalsAsQueue());
+
                 int plantEnergy = currPlant.getEnergy();
-                if(currAnimals.size() <= 0){
+                if(currAnimals.isEmpty()){
                     continue;
                 } else{
                     if(!currPlant.getIsPoisonous()){
