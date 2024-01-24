@@ -124,8 +124,12 @@ public class SimulationGUI extends Application {
         BorderPane mainPane = new BorderPane();
         mainPane.setTop(inputGrid);
 
+        ScrollPane mainScrollPane = new ScrollPane(mainPane);
+        mainScrollPane.setFitToWidth(true);
+        mainScrollPane.setFitToHeight(true);
 
-        Scene scene = new Scene(mainPane, 1100, 750);
+
+        Scene scene = new Scene(mainScrollPane, 1100, 750);
 
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
