@@ -97,39 +97,35 @@ public class SimulationGUI extends Application {
 
         GridPane inputGrid = new GridPane();
         inputGrid.setHgap(10);
-        inputGrid.setVgap(10);
+        inputGrid.setVgap(20);
         inputGrid.setPadding(new Insets(10, 10, 10, 10));
 
-        addLabelAndField(inputGrid, 0, "Map width:", mapWidthField);
-        addLabelAndField(inputGrid, 1, "Map height:", mapHeightField);
-        addLabelAndField(inputGrid, 2, "Number of animals:", numberOfAnimalsField);
-        addLabelAndField(inputGrid, 3, "Number of plants:", numberOfPlantsField);
-        addLabelAndField(inputGrid, 4, "Starting animal energy:", startingEnergyField);
-        addLabelAndField(inputGrid, 5, "Number of days:", numberOfDaysField);
-        addLabelAndField(inputGrid, 6, "Min mutated genes:", minMutatedGenesField);
-        addLabelAndField(inputGrid, 7, "Max mutated genes:", maxMutatedGenesField);
-        addLabelAndField(inputGrid, 8, "Energy of plant:", energyOfPlantField);
-        addLabelAndField(inputGrid, 9, "Genome size:", genomeSizeField);
-        addLabelAndField(inputGrid, 10, "Energy needed for copulation:", energyNeededForCopulationField);
-        addLabelAndField(inputGrid, 11, "Energy used for copulation:", energyUsedForCopulationField);
-        addLabelAndField(inputGrid, 12, "Number of plants per day:", numberOfPlantsPerDayField);
-        addLabelAndField(inputGrid, 13, "Mutation type:", mutationTypeComboBox);
-        addLabelAndField(inputGrid, 14, "Plants type:", plantsTypeComboBox);
+        addLabelAndField(inputGrid,0, 0, "Map width:", mapWidthField);
+        addLabelAndField(inputGrid,0, 1, "Map height:", mapHeightField);
+        addLabelAndField(inputGrid,0, 2, "Number of animals:", numberOfAnimalsField);
+        addLabelAndField(inputGrid,0, 3, "Number of plants:", numberOfPlantsField);
+        addLabelAndField(inputGrid,0, 4, "Starting animal energy:", startingEnergyField);
+        addLabelAndField(inputGrid,0, 5, "Number of days:", numberOfDaysField);
+        addLabelAndField(inputGrid,0, 6, "Min mutated genes:", minMutatedGenesField);
+        addLabelAndField(inputGrid,0, 7, "Max mutated genes:", maxMutatedGenesField);
+        addLabelAndField(inputGrid,0, 8, "Energy of plant:", energyOfPlantField);
+        addLabelAndField(inputGrid,0, 9, "Genome size:", genomeSizeField);
+        addLabelAndField(inputGrid,0, 10, "Energy needed for copulation:", energyNeededForCopulationField);
+        addLabelAndField(inputGrid,0, 11, "Energy used for copulation:", energyUsedForCopulationField);
+        addLabelAndField(inputGrid,0, 12, "Number of plants per day:", numberOfPlantsPerDayField);
+        addLabelAndField(inputGrid,10, 1, "Mutation type:", mutationTypeComboBox);
+        addLabelAndField(inputGrid,10, 2, "Plants type:", plantsTypeComboBox);
 
         mutationTypeComboBox.getItems().addAll(MutationType.values());
         plantsTypeComboBox.getItems().addAll(PlantsType.values());
 
-        inputGrid.add(startButton, 0, 15, 2, 1);
+        inputGrid.add(startButton, 10, 0, 2, 1);
 
         BorderPane mainPane = new BorderPane();
         mainPane.setTop(inputGrid);
 
-        HBox centerPane = new HBox();
-        centerPane.setVisible(false);
-        centerPane.setSpacing(10);
 
-
-        Scene scene = new Scene(mainPane, 1000, 750);
+        Scene scene = new Scene(mainPane, 1100, 750);
 
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -155,9 +151,9 @@ public class SimulationGUI extends Application {
         primaryStage.show();
     }
 
-    private void addLabelAndField(GridPane grid, int row, String labelText, Control control) {
-        grid.add(new Label(labelText), 0, row);
-        grid.add(control, 1, row);
+    private void addLabelAndField(GridPane grid,int col, int row, String labelText, Control control) {
+        grid.add(new Label(labelText), col, row);
+        grid.add(control, col+1, row);
     }
 
     private Scene createMapScene(){
