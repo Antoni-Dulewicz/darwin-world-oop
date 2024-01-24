@@ -19,7 +19,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -286,10 +285,10 @@ public class SimulationGUI extends Application {
         if(simulationTimeline != null){
             /*if(simulationTimeline.getStatus() != Timeline.Status.RUNNING) {*/
 
-                Statistics statistics = new Statistics(simulation.getMap());
+                Statistics statistics = new Statistics(simulation.map());
                 Genotype mostCommonGenotype = statistics.getMostCommonGenotype();
 
-                for (Square square : simulation.getMap().getAllSquares()) {
+                for (Square square : simulation.map().getAllSquares()) {
                     List<Animal> animals = square.getAnimals();
                     for (Animal currAnimal : animals) {
                         if (currAnimal.getGenotype().equals(mostCommonGenotype)) {

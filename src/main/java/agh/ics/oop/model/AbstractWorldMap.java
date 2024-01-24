@@ -6,19 +6,19 @@ import agh.ics.oop.model.util.MapVisualizer;
 import java.util.*;
 
 public abstract class AbstractWorldMap implements WorldMap{
-    private Vector2d lowerLeft;
-    private Vector2d upperRight;
+    private final Vector2d lowerLeft;
+    private final Vector2d upperRight;
     private List<Animal> animals;
     private List<Animal> deadAnimals;
     private List<Animal> allDeadAnimals;
     private List<Plant> plants;
     private HashMap<Vector2d, Square> mapSquares;
 
-    private MutationType mutationType;
+    private final MutationType mutationType;
 
-    private PlantsType plantsType;
+    private final PlantsType plantsType;
 
-    private Rectangle poisonRectangle;
+    private final Rectangle poisonRectangle;
 
     private final PositionGenerator positionGenerator;
 
@@ -38,6 +38,10 @@ public abstract class AbstractWorldMap implements WorldMap{
 
     @Override
     public boolean place(WorldElement element, Vector2d position) {
+        if (!this.canMoveTo(position)) {
+            throw new IllegalArgumentException(position + " is out of map");
+        }
+
         //put element on given position
         Square square = new Square(position,element);
         List<Animal> newAnimals = square.getAnimals();
@@ -59,9 +63,7 @@ public abstract class AbstractWorldMap implements WorldMap{
         }
 
         if (newAnimals != null) {
-            for (Animal animal : newAnimals) {
-                this.animals.add(animal);
-                }
+            this.animals.addAll(newAnimals);
         }
         if (newPlant != null) {
             this.plants.add(newPlant);
@@ -75,15 +77,16 @@ public abstract class AbstractWorldMap implements WorldMap{
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        int x = position.getX();
-        int y = position.getY();
-        return (y >= this.lowerLeft.getY() && y <= this.upperRight.getY());
+        int x = position.x();
+        int y = position.y();
+        return (y >= this.lowerLeft.y() && y <= this.upperRight.y()) && (x >= this.lowerLeft.x() && x <= this.upperRight.x());
 
 
     }
 
     @Override
     public Object objectAt(Vector2d position) {
+
         return mapSquares.get(position);
     }
 
@@ -104,9 +107,9 @@ public abstract class AbstractWorldMap implements WorldMap{
     @Override
     public List<WorldElement> getElements() {
         List<WorldElement> elements = new ArrayList<>();
-        WorldElement newElement = new WorldElement();
+
         for(int i = 0; i < this.mapSquares.size(); i++){
-            newElement = this.mapSquares.get(i).ObjectAt();
+            WorldElement newElement = this.mapSquares.get(i).ObjectAt();
             elements.add(newElement);
         }
 
@@ -115,12 +118,12 @@ public abstract class AbstractWorldMap implements WorldMap{
 
     @Override
     public int getHeigth() {
-        return this.upperRight.getY() - this.lowerLeft.getY() + 1;
+        return this.upperRight.y() - this.lowerLeft.y() + 1;
     }
 
     @Override
     public int getWidth() {
-        return this.upperRight.getX() - this.lowerLeft.getX() + 1;
+        return this.upperRight.x() - this.lowerLeft.x() + 1;
     }
 
     @Override
@@ -219,7 +222,7 @@ public abstract class AbstractWorldMap implements WorldMap{
             return;
         }else{  //jesli newSquare juz istnieje to
             Plant currPlant = newSquare.getPlant();
-            if(currPlant != null && currPlant.getIsPoisonous()){  //jesli na newSquare jest roslina i jest trujaca to
+            if(currPlant != null && currPlant.isPoisonous()){  //jesli na newSquare jest roslina i jest trujaca to
                 Random generator = new Random();
                 double probability = generator.nextDouble(); //zwierze wykonuje test na spostrzegawczość
                 if(probability <= 0.2){ //jesli udalo mu sie zauwazyc to ze roslina jest trujaca to
@@ -267,7 +270,7 @@ public abstract class AbstractWorldMap implements WorldMap{
             }
         }
 
-        /*animal.setAge(animal.getAge() + 1); //zwierze dostaje 1 rok*/
+
 
     }
 
@@ -336,11 +339,11 @@ public abstract class AbstractWorldMap implements WorldMap{
                 Plant currPlant = square.getPlant();
                 PriorityQueue<Animal> currAnimals = new PriorityQueue<>(square.getElement().getAnimalsAsQueue());
 
-                int plantEnergy = currPlant.getEnergy();
+                int plantEnergy = currPlant.energy();
                 if(currAnimals.isEmpty()){
                     continue;
                 } else{
-                    if(!currPlant.getIsPoisonous()){
+                    if(!currPlant.isPoisonous()){
                         eatNormalPlant(currAnimals,plantEnergy,currPlant,square);
                     }else{
                         eatPoisonousPlant(currAnimals,plantEnergy,currPlant,square);
@@ -442,10 +445,10 @@ public abstract class AbstractWorldMap implements WorldMap{
     }
 
     public Rectangle createPoisonMap(){
-        int startX = this.lowerLeft.getX();
-        int startY = this.lowerLeft.getY();
-        int endX = this.upperRight.getX();
-        int endY = this.upperRight.getY();
+        int startX = this.lowerLeft.x();
+        int startY = this.lowerLeft.y();
+        int endX = this.upperRight.x();
+        int endY = this.upperRight.y();
         int sizeX = (int) ((endX - startX)*0.4);
         int sizeY = (int) ((endY - startY)*0.4);
 
@@ -470,14 +473,14 @@ public abstract class AbstractWorldMap implements WorldMap{
         Plant newPlant = new Plant(position,energyOfPlant,false);
         WorldElement newElement = new WorldElement();
         newElement.addPlant(newPlant);
-        this.place(newElement,newPlant.getPosition());
+        this.place(newElement,newPlant.position());
     }
 
     public void growPoisonousPlant(Vector2d position,int energyOfPlant){
         Plant newPlant = new Plant(position,energyOfPlant,true);
         WorldElement newElement = new WorldElement();
         newElement.addPlant(newPlant);
-        this.place(newElement,newPlant.getPosition());
+        this.place(newElement,newPlant.position());
     }
 
     public void growPlants(int numberOfPlants,int energyOfPlant){

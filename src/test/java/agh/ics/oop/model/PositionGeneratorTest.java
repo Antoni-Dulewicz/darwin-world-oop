@@ -12,8 +12,8 @@ public class PositionGeneratorTest {
 
         for(int i=0;i<100;i++){
             Vector2d position = positionGenerator.randomPosition();
-            assertTrue(position.getX()>=0 && position.getX()<=10);
-            assertTrue(position.getY()>=0 && position.getY()<=10);
+            assertTrue(position.x()>=0 && position.x()<=10);
+            assertTrue(position.y()>=0 && position.y()<=10);
         }
     }
 
@@ -25,8 +25,8 @@ public class PositionGeneratorTest {
 
         for(int i=0;i<100;i++){
             Vector2d position = positionGenerator.randomPositionInMiddle();
-            assertTrue(position.getX()>=0 && position.getX()<=10);
-            assertTrue(position.getY()>=4 && position.getY()<=6);
+            assertTrue(position.x()>=0 && position.x()<=10);
+            assertTrue(position.y()>=4 && position.y()<=6);
         }
     }
 
@@ -38,9 +38,9 @@ public class PositionGeneratorTest {
 
         for(int i=0;i<100;i++){
             Vector2d position = positionGenerator.randomPositionOutsideMiddle();
-            assertTrue(position.getX()>=0 && position.getX()<=10);
-            assertTrue(position.getY()>=0 && position.getY()<=10);
-            assertTrue(position.getY()<=4 || position.getY()>=6);
+            assertTrue(position.x()>=0 && position.x()<=10);
+            assertTrue(position.y()>=0 && position.y()<=10);
+            assertTrue(position.y()<=4 || position.y()>=6);
         }
     }
 }

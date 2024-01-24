@@ -3,15 +3,13 @@ package agh.ics.oop.model.elements;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.WorldMap;
 
-import java.util.Objects;
-
 public class Animal {
 
     private int direction;
 
     private Vector2d position;
 
-    private Genotype genotype;
+    private final Genotype genotype;
 
     private int energy;
     private int age;
@@ -116,11 +114,11 @@ public class Animal {
                 int x = 0;
                 int y = 1;
                 Vector2d newPos = this.position.add(new Vector2d(x,y));
-                int x1 = newPos.getX();
-                int y1 = newPos.getY();
-                int width = map.getWidth() + map.getLowerLeft().getX() - 1;
-                int height = map.getHeigth() + map.getLowerLeft().getY() - 1;
-                if (x1 == map.getLowerLeft().getX()-1) x1 = width;
+                int x1 = newPos.x();
+                int y1 = newPos.y();
+                int width = map.getWidth() + map.getLowerLeft().x() - 1;
+                int height = map.getHeigth() + map.getLowerLeft().y() - 1;
+                if (x1 == map.getLowerLeft().x()-1) x1 = width;
                 if (y1 == height+1){
                     y1 = height;
                     this.direction = 4;
@@ -135,15 +133,15 @@ public class Animal {
                 int x = 1;
                 int y = 1;
                 Vector2d newPos = this.position.add(new Vector2d(x,y));
-                int x1 = newPos.getX();
-                int y1 = newPos.getY();
-                int width = map.getWidth() + map.getLowerLeft().getX()-1;
-                int height = map.getHeigth() + map.getLowerLeft().getY()-1;
-                if (x1 == map.getLowerLeft().getX()-1) x1 = width;
-                if (y1 == map.getLowerLeft().getY()-1) y1 = 0;
+                int x1 = newPos.x();
+                int y1 = newPos.y();
+                int width = map.getWidth() + map.getLowerLeft().x()-1;
+                int height = map.getHeigth() + map.getLowerLeft().y()-1;
+                if (x1 == map.getLowerLeft().x()-1) x1 = width;
+                if (y1 == map.getLowerLeft().y()-1) y1 = 0;
                 if (y1 == height+1){
                     y1 = height;
-                    x1 = this.position.getX();
+                    x1 = this.position.x();
                     this.direction = 4;
                 }else{
                     this.direction = 1;
@@ -156,11 +154,11 @@ public class Animal {
                 int x = 1;
                 int y = 0;
                 Vector2d newPos = this.position.add(new Vector2d(x,y));
-                int x1 = newPos.getX();
-                int y1 = newPos.getY();
-                int width = map.getWidth() + map.getLowerLeft().getX()-1;
-                int height = map.getHeigth() + map.getLowerLeft().getY()-1;
-                if (x1 == map.getLowerLeft().getX()-1) x1 = width;
+                int x1 = newPos.x();
+                int y1 = newPos.y();
+                int width = map.getWidth() + map.getLowerLeft().x()-1;
+                int height = map.getHeigth() + map.getLowerLeft().y()-1;
+                if (x1 == map.getLowerLeft().x()-1) x1 = width;
 
                 newPos = new Vector2d(x1%(width), y1);
                 this.position = newPos;
@@ -170,14 +168,14 @@ public class Animal {
                 int x = 1;
                 int y = -1;
                 Vector2d newPos = this.position.add(new Vector2d(x,y));
-                int x1 = newPos.getX();
-                int y1 = newPos.getY();
-                int width = map.getWidth() + map.getLowerLeft().getX()-1;
-                int height = map.getHeigth() + map.getLowerLeft().getY()-1;
-                if (x1 == map.getLowerLeft().getX()-1) x1 = width;
-                if (y1 == map.getLowerLeft().getY()-1){
-                    y1 = map.getLowerLeft().getY();
-                    x1 = this.position.getX();
+                int x1 = newPos.x();
+                int y1 = newPos.y();
+                int width = map.getWidth() + map.getLowerLeft().x()-1;
+                int height = map.getHeigth() + map.getLowerLeft().y()-1;
+                if (x1 == map.getLowerLeft().x()-1) x1 = width;
+                if (y1 == map.getLowerLeft().y()-1){
+                    y1 = map.getLowerLeft().y();
+                    x1 = this.position.x();
                     this.direction = 0;
                 }else{
                     this.direction = 3;
@@ -189,13 +187,13 @@ public class Animal {
                 int x = 0;
                 int y = -1;
                 Vector2d newPos = this.position.add(new Vector2d(x,y));
-                int x1 = newPos.getX();
-                int y1 = newPos.getY();
-                int width = map.getWidth() + map.getLowerLeft().getX()-1;
-                int height = map.getHeigth() + map.getLowerLeft().getY()-1;
-                if (x1 == map.getLowerLeft().getX()-1) x1 = width;
-                if (y1 == map.getLowerLeft().getY()-1){
-                    y1 = map.getLowerLeft().getY();
+                int x1 = newPos.x();
+                int y1 = newPos.y();
+                int width = map.getWidth() + map.getLowerLeft().x()-1;
+                int height = map.getHeigth() + map.getLowerLeft().y()-1;
+                if (x1 == map.getLowerLeft().x()-1) x1 = width;
+                if (y1 == map.getLowerLeft().y()-1){
+                    y1 = map.getLowerLeft().y();
                     this.direction = 0;
                 }else{
                     this.direction = 4;
@@ -208,14 +206,14 @@ public class Animal {
                 int x = -1;
                 int y = -1;
                 Vector2d newPos = this.position.add(new Vector2d(x,y));
-                int x1 = newPos.getX();
-                int y1 = newPos.getY();
-                int width = map.getWidth() + map.getLowerLeft().getX()-1;
-                int height = map.getHeigth() + map.getLowerLeft().getY()-1;
-                if (x1 == map.getLowerLeft().getX()-1) x1 = width;
-                if (y1 == map.getLowerLeft().getY()-1){
-                    y1 = map.getLowerLeft().getY();
-                    x1 = this.position.getX();
+                int x1 = newPos.x();
+                int y1 = newPos.y();
+                int width = map.getWidth() + map.getLowerLeft().x()-1;
+                int height = map.getHeigth() + map.getLowerLeft().y()-1;
+                if (x1 == map.getLowerLeft().x()-1) x1 = width;
+                if (y1 == map.getLowerLeft().y()-1){
+                    y1 = map.getLowerLeft().y();
+                    x1 = this.position.x();
                     this.direction = 0;
                 }else{
                     this.direction = 5;
@@ -228,11 +226,11 @@ public class Animal {
                 int x = -1;
                 int y = 0;
                 Vector2d newPos = this.position.add(new Vector2d(x,y));
-                int x1 = newPos.getX();
-                int y1 = newPos.getY();
-                int width = map.getWidth() + map.getLowerLeft().getX()-1;
-                int height = map.getHeigth() + map.getLowerLeft().getY()-1;
-                if (x1 == map.getLowerLeft().getX()-1) x1 = width;
+                int x1 = newPos.x();
+                int y1 = newPos.y();
+                int width = map.getWidth() + map.getLowerLeft().x()-1;
+                int height = map.getHeigth() + map.getLowerLeft().y()-1;
+                if (x1 == map.getLowerLeft().x()-1) x1 = width;
 
                 newPos = new Vector2d(x1%(width+1), y1);
                 this.position = newPos;
@@ -242,14 +240,14 @@ public class Animal {
                 int x = -1;
                 int y = 1;
                 Vector2d newPos = this.position.add(new Vector2d(x,y));
-                int x1 = newPos.getX();
-                int y1 = newPos.getY();
-                int width = map.getWidth() + map.getLowerLeft().getX()-1;
-                int height = map.getHeigth() + map.getLowerLeft().getY()-1;
-                if (x1 == map.getLowerLeft().getX()-1) x1 = width;
+                int x1 = newPos.x();
+                int y1 = newPos.y();
+                int width = map.getWidth() + map.getLowerLeft().x()-1;
+                int height = map.getHeigth() + map.getLowerLeft().y()-1;
+                if (x1 == map.getLowerLeft().x()-1) x1 = width;
                 if (y1 == height+1){
                     y1 = height;
-                    x1 = this.position.getX();
+                    x1 = this.position.x();
                     this.direction = 4;
                 }else{
                     this.direction = 7;

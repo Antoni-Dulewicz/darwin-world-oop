@@ -1,6 +1,5 @@
 package agh.ics.oop.presenters;
 
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -37,8 +36,8 @@ public class MapPanel extends Region {
     public void setAnimalColor(Animal animal, Color color){
         double tileWidth = getWidth() / map.getWidth();
         double tileHeight = getHeight() / map.getHeigth();
-        double x = animal.getPosition().getX() * tileWidth;
-        double y = animal.getPosition().getY() * tileHeight;
+        double x = animal.getPosition().x() * tileWidth;
+        double y = animal.getPosition().y() * tileHeight;
         double circleX = x + tileWidth / 2;
         double circleY = y + tileHeight / 2;
         double circleRadius = Math.min(tileWidth,tileHeight)/4;
@@ -79,7 +78,7 @@ public class MapPanel extends Region {
                     rectangle.setStrokeWidth(1);
 
                     if(plant != null){
-                        if(plant.getIsPoisonous()){
+                        if(plant.isPoisonous()){
                             rectangle.setFill(Color.web("#999900"));
                         }
                         else{
