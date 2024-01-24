@@ -18,6 +18,7 @@ public class Animal {
     private int childrenCount;
 
     private int plantsEaten;
+    private int dayOfDeath;
 
     public Animal(Vector2d initialPosition, int energy, Genotype genotype, int age) {
         this.direction = 0;
@@ -27,6 +28,7 @@ public class Animal {
         this.age = age;
         this.childrenCount = 0;
         this.plantsEaten = 0;
+        this.dayOfDeath = -1;
 
     }
 
@@ -37,6 +39,8 @@ public class Animal {
         this.energy = energy;
         this.age = age;
         this.childrenCount = 0;
+        this.plantsEaten = 0;
+        this.dayOfDeath = -1;
 
     }
 
@@ -84,8 +88,22 @@ public class Animal {
     }
 
     public void setAge(int age) {
+
         this.age = age;
     }
+
+    public int getDayOfDeath() {
+        return dayOfDeath;
+    }
+
+    public void setDayOfDeath(int dayOfDeath) {
+        this.dayOfDeath = dayOfDeath;
+    }
+
+    public boolean isDead(){
+        return this.energy <= 0;
+    }
+
 
     public Animal move(WorldMap map){
         int currentDirection = this.direction;
@@ -111,9 +129,6 @@ public class Animal {
                 }
 
                 newPos = new Vector2d(x1%(width+1), y1);
-                if(newPos.getX() == 12){
-                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
-                }
                 this.position = newPos;
             }
             case 1 -> {
@@ -135,9 +150,6 @@ public class Animal {
                 }
 
                 newPos = new Vector2d(x1%(width+1), y1);
-                if(newPos.getX() == 12){
-                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
-                }
                 this.position = newPos;
             }
             case 2 -> {
@@ -151,9 +163,6 @@ public class Animal {
                 if (x1 == map.getLowerLeft().getX()-1) x1 = width;
 
                 newPos = new Vector2d(x1%(width), y1);
-                if(newPos.getX() == 12){
-                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
-                }
                 this.position = newPos;
                 this.direction = 2;
             }
@@ -174,9 +183,6 @@ public class Animal {
                     this.direction = 3;
                 }
                 newPos = new Vector2d(x1%(width), y1);
-                if(newPos.getX() == 12){
-                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
-                }
                 this.position = newPos;
             }
             case 4 -> {
@@ -196,9 +202,6 @@ public class Animal {
                 }
 
                 newPos = new Vector2d(x1%(width+1), y1);
-                if(newPos.getX() == 12){
-                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
-                }
                 this.position = newPos;
             }
             case 5 -> {
@@ -219,9 +222,6 @@ public class Animal {
                 }
 
                 newPos = new Vector2d(x1%(width+1), y1);
-                if(newPos.getX() == 12){
-                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
-                }
                 this.position = newPos;
             }
             case 6 -> {
@@ -235,9 +235,6 @@ public class Animal {
                 if (x1 == map.getLowerLeft().getX()-1) x1 = width;
 
                 newPos = new Vector2d(x1%(width+1), y1);
-                if(newPos.getX() == 12){
-                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
-                }
                 this.position = newPos;
                 this.direction = 6;
             }
@@ -259,9 +256,6 @@ public class Animal {
                 }
 
                 newPos = new Vector2d(x1%(width+1), y1);
-                if(newPos.getX() == 12){
-                    System.out.println("X: " + newPos.getX() + " Y: " + newPos.getY());
-                }
                 this.position = newPos;
             }
             default -> throw new IllegalArgumentException();
@@ -272,6 +266,13 @@ public class Animal {
         return this;
     }
 
+    public String showStats(){
+        return "Energy: " + this.energy + "\n" +
+                "Age: " + this.age + "\n" +
+                "Children: " + this.childrenCount + "\n" +
+                "Plants eaten: " + this.plantsEaten + "\n" +
+                "Genotype: " + this.genotype.toString();
+    }
 
 
 

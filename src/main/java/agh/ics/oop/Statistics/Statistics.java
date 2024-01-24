@@ -1,8 +1,6 @@
 package agh.ics.oop.Statistics;
 
-import agh.ics.oop.model.AbstractWorldMap;
 import agh.ics.oop.model.GameMap;
-import agh.ics.oop.model.WorldMap;
 import agh.ics.oop.model.elements.Animal;
 import agh.ics.oop.model.elements.Genotype;
 import agh.ics.oop.model.elements.Plant;
