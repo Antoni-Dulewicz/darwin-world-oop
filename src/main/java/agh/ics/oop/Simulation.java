@@ -30,5 +30,4 @@ public class Simulation {
         return map;
     }
 
-
 }

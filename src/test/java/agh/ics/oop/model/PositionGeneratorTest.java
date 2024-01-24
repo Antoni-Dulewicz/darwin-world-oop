@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PositionGeneratorTest {
-
     @Test
     public void testRandomPosition(){
         Vector2d lowerLeft = new Vector2d(0,0);

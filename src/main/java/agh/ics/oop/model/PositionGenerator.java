@@ -61,9 +61,6 @@ public class PositionGenerator {
             y = generator.nextInt(2) == 0 ? y1 : y2;
         }
 
-        if (y == 11){
-            System.out.println("X: " + x + " Y: " + y);
-        }
 
         return new Vector2d(x,y);
     }

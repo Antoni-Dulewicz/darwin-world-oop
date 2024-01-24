@@ -149,6 +149,5 @@ public class AnimalTest {
         animal7.move(map7);
         assertEquals(animal6.getPosition(),new Vector2d(3,0));
 
-
     }
 }
