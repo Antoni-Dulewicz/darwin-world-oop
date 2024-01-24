@@ -14,10 +14,10 @@ public class World {
 
         /*System.out.println("SYSTEM ZACZAL DZIALANIE");
         Vector2d lowerLeft = new Vector2d(0,0);
-        Vector2d upperRight = new Vector2d(11,11);
+        Vector2d upperRight = new Vector2d(5,5);
         GameMap map = new GameMap(lowerLeft,upperRight,MutationType.NORMALMUTATION, PlantsType.POISONOUSPLANTS);
         Simulation simulation = new Simulation(map);
-        map.createMap(500,100,5,5);
+        map.createMap(5,10,10,5,5);
 
         System.out.println(map.toString());
         for(int i = 0; i < 200; i++) {

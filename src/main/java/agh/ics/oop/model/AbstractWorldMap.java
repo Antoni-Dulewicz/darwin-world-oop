@@ -153,12 +153,12 @@ public abstract class AbstractWorldMap implements WorldMap{
         MapVisualizer visualizer = new MapVisualizer(this);
         return visualizer.draw(this.lowerLeft,this.upperRight);
     }
-    public void createAnimals(int numberOfAnimals, int genomeSize){
+    public void createAnimals(int numberOfAnimals, int genomeSize, int startingEnergy){
         Random generator = new Random();
 
         for(int i = 0; i < numberOfAnimals; i++){
             Vector2d position = this.positionGenerator.randomPosition();
-            int energy = generator.nextInt(5)+6;
+            int energy = startingEnergy;
             Genotype genotype = new Genotype(genomeSize);
             int age = 0;
             Animal newAnimal = new Animal(position,energy,genotype,age);
@@ -167,8 +167,8 @@ public abstract class AbstractWorldMap implements WorldMap{
             this.place(newElement,newAnimal.getPosition());
         }
     }
-    public void createMap(int numberOfAnimals,int numberOfPlants, int energyOfPlant, int genomeSize){
-        createAnimals(numberOfAnimals,genomeSize);
+    public void createMap(int numberOfAnimals,int numberOfPlants,int startingEnergy, int energyOfPlant, int genomeSize){
+        createAnimals(numberOfAnimals,genomeSize,startingEnergy);
 
         growPlants(numberOfPlants,energyOfPlant);
     }
@@ -267,14 +267,27 @@ public abstract class AbstractWorldMap implements WorldMap{
             }
         }
 
-        animal.setAge(animal.getAge() + 1); //zwierze dostaje 1 rok
+        /*animal.setAge(animal.getAge() + 1); //zwierze dostaje 1 rok*/
 
     }
+
+    public void changeAnimalsAge(){
+        for(Square square : getAllSquares()){
+            if(square != null && square.getElement().hasAnimals()){
+                List<Animal> currAnimals = square.getAnimals();
+                for(Animal animal : currAnimals){
+                    animal.setAge(animal.getAge() + 1);
+                }
+            }
+        }
+    }
+
 
     public void moveAllAnimals(){
         for(Animal animal : this.animals){
             this.moveOneAnimal(animal);
         }
+        changeAnimalsAge();
     }
 
     public void removeDeadAnimals(){
@@ -510,5 +523,20 @@ public abstract class AbstractWorldMap implements WorldMap{
                 this.mapSquares.remove(square);
             }
         }
+    }
+
+    public int getHighestEnergy(){
+        int highestEnergy = 0;
+        for(Square square : getAllSquares()){
+            if(square != null && square.getElement().hasAnimals()){
+                List<Animal> currAnimals = square.getAnimals();
+                for(Animal animal : currAnimals){
+                    if(animal.getEnergy() > highestEnergy){
+                        highestEnergy = animal.getEnergy();
+                    }
+                }
+            }
+        }
+        return highestEnergy;
     }
 }

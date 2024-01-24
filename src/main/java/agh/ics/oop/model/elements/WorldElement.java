@@ -10,7 +10,12 @@ public class WorldElement {
     private Plant plant;
 
     public WorldElement() {
-        this.animals = new PriorityQueue<>(Comparator.comparingInt(Animal::getEnergy).reversed());
+        this.animals = new PriorityQueue<>
+                (Comparator.comparingInt(Animal::getEnergy).reversed()
+                        .thenComparingInt(Animal::getAge).reversed()
+                        .thenComparingInt(Animal::getChildrenCount).reversed()
+                        .thenComparingDouble(animal -> Math.random())
+        );
         this.plant = null;
     }
 
