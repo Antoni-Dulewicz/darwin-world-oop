@@ -312,6 +312,9 @@ public abstract class AbstractWorldMap implements WorldMap{
     public void eatNormalPlant(PriorityQueue currAnimals,int plantEnergy,Plant currPlant,Square square){
         Animal strongestAnimal = (Animal) currAnimals.poll();
         int animalEnergy = strongestAnimal.getEnergy();
+        if(animalEnergy <= 0){
+            return;
+        }
         int newAnimalEnergy = animalEnergy + plantEnergy; //dodajemy energie
         strongestAnimal.setEnergy(newAnimalEnergy);
         strongestAnimal.setPlantsEaten(strongestAnimal.getPlantsEaten() + 1);
@@ -322,6 +325,9 @@ public abstract class AbstractWorldMap implements WorldMap{
     public void eatPoisonousPlant(PriorityQueue currAnimals,int plantEnergy,Plant currPlant,Square square){
         Animal strongestAnimal = (Animal) currAnimals.poll();
         int animalEnergy = strongestAnimal.getEnergy();
+        if(animalEnergy <= 0){
+            return;
+        }
         int newAnimalEnergy = animalEnergy - plantEnergy; //odejmujemy energie
         strongestAnimal.setEnergy(newAnimalEnergy);
         strongestAnimal.setPlantsEaten(strongestAnimal.getPlantsEaten() + 1);

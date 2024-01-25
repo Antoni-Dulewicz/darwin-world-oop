@@ -8,6 +8,5 @@ public class World {
         System.out.println("System ropzocza dzialanie");
         Application.launch(SimulationGUI.class, args);
         System.out.println("System zakonczyl dzialanie");
-
     }
 }
