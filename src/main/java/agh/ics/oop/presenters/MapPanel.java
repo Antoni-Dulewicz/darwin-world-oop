@@ -73,7 +73,7 @@ public class MapPanel extends Region {
                     rectangle.setStrokeWidth(1);
 
                     if(plant != null) {
-                        if(plant.getIsPoisonous()) {
+                        if(plant.isPoisonous()) {
 
                             rectangle.setFill(Color.web("#999900"));
                         } else { rectangle.setFill(Color.web("#336600")); }

@@ -257,9 +257,9 @@ public class SimulationGUI extends Application {
 
     private void showPopularGen(){
         if(simulationTimeline != null){
-            Statistics statistics = new Statistics(simulation.getMap());
+            Statistics statistics = new Statistics(simulation.map());
             Genotype mostCommonGenotype = statistics.getMostCommonGenotype();
-            for (Square square : simulation.getMap().getAllSquares()) {
+            for (Square square : simulation.map().getAllSquares()) {
                 List<Animal> animals = square.getAnimals();
                 for (Animal currAnimal : animals) {
                     if (currAnimal.getGenotype().equals(mostCommonGenotype)) {
@@ -291,7 +291,6 @@ public class SimulationGUI extends Application {
                     statisticsTextArea.setText("Day " + currentDay + ":\n" + statistics.show() + "\n\n");
                     currentDay++;
                 } else {
-                    currentDay++;
                     simulation.run(minMutatedGenes, maxMutatedGenes, energyOfPlant, energyNeededForCopulation, energyUsedForCopulation, numberOfPlantsPerDay);
                     mapPanel.setMap(map);
                     statisticsTextArea.setText("Day " + currentDay + ":\n" + statistics.show() + "\n\n");
@@ -307,6 +306,7 @@ public class SimulationGUI extends Application {
                             statisticsPerAnimalTextArea.setText(chosenAnimal.showStats() + "\n" + "Day of death: " + chosenAnimal.getDayOfDeath());
                         }
                     }
+                    currentDay++;
                 }
             } else { simulationTimeline.stop(); }
         }));
