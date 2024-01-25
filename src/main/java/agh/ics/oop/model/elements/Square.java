@@ -1,18 +1,16 @@
 package agh.ics.oop.model.elements;
 
-import agh.ics.oop.World;
 import agh.ics.oop.model.Vector2d;
 
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class Square {
-    private Vector2d position;
+    private final Vector2d position;
     private WorldElement element; //element - lista animali i plant
 
     public Square(Vector2d position) {
         this.position = position;
-        this.element = null;
+        this.element = new WorldElement();
     }
     public Square(Vector2d position, WorldElement element) {
         this.position = position;
@@ -33,6 +31,7 @@ public class Square {
         return element;
     }
     public List<Animal> getAnimals(){
+
         return this.element.getAnimals();
     }
 

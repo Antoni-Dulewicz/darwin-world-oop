@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
 import javafx.stage.Stage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -247,14 +248,12 @@ public class SimulationGUI extends Application {
         }
     }
 
-
     private void stopTracking(){
         mapPanel.setAnimalColor(mapPanel.getChosenAnimal(), Color.web("#999900"));
         mapPanel.setChosenAnimal(null);
         statisticsPerAnimalTextArea.setVisible(false);
         stopTrackingButton.setVisible(false);
     }
-
 
     private void showPopularGen(){
         if(simulationTimeline != null){

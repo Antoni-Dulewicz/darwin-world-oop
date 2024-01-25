@@ -1,12 +1,12 @@
 package agh.ics.oop.model.elements;
 
-import java.util.ArrayList;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
 public class WorldElement {
-    private PriorityQueue<Animal> animals;
+    private final PriorityQueue<Animal> animals;
     private Plant plant;
 
     public WorldElement() {
@@ -64,6 +64,7 @@ public class WorldElement {
     @Override
     public String toString() {
         if(this.hasAnimals()){
+            assert this.animals.peek() != null;
             return this.animals.peek().toString();
         }
         if(this.hasPlant()){

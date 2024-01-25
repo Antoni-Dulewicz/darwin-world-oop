@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Genotype {
-    private List<Integer> genome;
+    private final List<Integer> genome;
     private int currentGene;
 
     public Genotype(int genomeSize){
@@ -72,10 +72,6 @@ public class Genotype {
             }
         }
 
-    }
-
-    public void setGenome(List<Integer> genome) {
-        this.genome = genome;
     }
 
     public void setCurrentGene(int currentGene) {
